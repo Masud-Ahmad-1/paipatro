@@ -1,15 +1,43 @@
 <!DOCTYPE html>
-<html lang="bn">
+<html lang="bn" data-theme="light">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>পাইপত্র — একটি ব্যক্তিগত ব্লগ</title>
+<title>পাইপত্র — ইতিহাস, অর্থনীতি ও শিক্ষা নিয়ে লেখালেখির একটি খাতা</title>
+<meta name="description" content="পাইপত্র — বাংলা ভাষায় ইতিহাস, অর্থনীতি ও শিক্ষাবিজ্ঞান নিয়ে গভীর লেখালেখির একটি ব্যক্তিগত ব্লগ।">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="পাইপত্র">
+<meta property="og:locale" content="bn_BD">
+<meta name="twitter:card" content="summary">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Bengali:wght@400;500;600;700&family=Hind+Siliguri:wght@300;400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
+
+<!-- রিডিং প্রগ্রেস বার -->
+<div class="progress-bar" id="progress-bar"></div>
+
+<!-- টুলবার: সার্চ + ডার্ক মোড + ফন্ট সাইজ -->
+<div class="toolbar" id="toolbar">
+  <form class="search-box" id="search-form" autocomplete="off">
+    <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.35-4.35"/></svg>
+    <input type="search" id="search-input" placeholder="সার্চ করুন…" >
+    <button type="button" class="search-close" id="search-close" style="display:none;">✕</button>
+  </form>
+  <div class="toolbar-actions">
+    <button class="tool-btn" id="font-dec" title="ছোট ফন্ট">A−</button>
+    <button class="tool-btn" id="font-inc" title="বড় ফন্ট">A+</button>
+    <button class="tool-btn" id="theme-toggle" title="ডার্ক মোড">
+      <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+    </button>
+  </div>
+</div>
+
+<!-- সার্চ ফলাফল -->
+<div class="search-results" id="search-results" style="display:none;"></div>
 
 <header class="site">
   <button class="logo" id="logo-link">
@@ -185,5 +213,6 @@
 <script src="/categories.js"></script>
 <script src="/plans.js"></script>
 <script src="/app.js"></script>
+<script src="/enhancements.js"></script>
 </body>
 </html>

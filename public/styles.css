@@ -290,3 +290,96 @@ footer{padding-top:30px;}
 
 /* submissions review */
 .submission-excerpt{font-size:0.88rem;color:var(--ink-soft);margin:10px 0 14px;}
+
+/* ==================== নতুন উন্নয়ন ==================== */
+
+/* --- ডার্ক মোড --- */
+[data-theme="dark"]{
+  --paper:#111010;
+  --paper-alt:#1A1918;
+  --ink:#E5E2DC;
+  --ink-soft:#B0ACA5;
+  --muted:#706C66;
+  --accent:#6EC6B8;
+  --accent-soft:#1F2E2A;
+  --rule:#2A2826;
+  --danger:#E8786A;
+}
+[data-theme="dark"] .modal-box{box-shadow:0 12px 40px rgba(0,0,0,0.5);}
+[data-theme="dark"] .more-menu{box-shadow:0 8px 24px rgba(0,0,0,0.4);}
+[data-theme="dark"] .field input,[data-theme="dark"] .field textarea,[data-theme="dark"] .field select,
+[data-theme="dark"] .paywall-form input{background:var(--paper-alt);border-color:var(--rule);color:var(--ink);}
+[data-theme="dark"] .bkash-number{color:#F06BA5;}
+.theme-toggle .icon-sun{display:none;width:18px;height:18px;}
+.theme-toggle .icon-moon{display:block;width:18px;height:18px;}
+[data-theme="dark"] .theme-toggle .icon-sun{display:block;}
+[data-theme="dark"] .theme-toggle .icon-moon{display:none;}
+
+/* --- টুলবার --- */
+.toolbar{
+  position:sticky;top:0;z-index:30;
+  background:var(--paper);
+  border-bottom:1px solid var(--rule);
+  padding:10px 24px;
+  max-width:var(--max);
+  margin:0 auto;
+  display:flex;align-items:center;gap:12px;
+}
+.search-box{
+  flex:1;display:flex;align-items:center;gap:8px;
+  background:var(--paper-alt);border:1px solid var(--rule);border-radius:20px;padding:7px 14px;transition:border-color .2s;
+}
+.search-box:focus-within{border-color:var(--accent);}
+.search-icon{width:16px;height:16px;color:var(--muted);flex-shrink:0;}
+.search-box input{
+  flex:1;border:none;background:none;font-family:inherit;font-size:0.9rem;color:var(--ink);outline:none;min-width:0;
+}
+.search-box input::placeholder{color:var(--muted);}
+.search-close{background:none;border:none;color:var(--muted);font-size:1rem;cursor:pointer;padding:0 2px;font-family:inherit;}
+.search-close:hover{color:var(--danger);}
+.toolbar-actions{display:flex;gap:6px;flex-shrink:0;}
+.tool-btn{
+  background:none;border:1px solid var(--rule);color:var(--ink-soft);
+  font-family:inherit;font-size:0.8rem;padding:5px 10px;border-radius:4px;
+  cursor:pointer;transition:.2s;display:flex;align-items:center;justify-content:center;
+}
+.tool-btn:hover{border-color:var(--accent);color:var(--accent);}
+
+/* --- সার্চ ফলাফল --- */
+.search-results{
+  position:fixed;top:50px;left:50%;transform:translateX(-50%);
+  width:min(92vw, 520px);max-height:70vh;overflow-y:auto;
+  background:var(--paper);border:1px solid var(--rule);border-radius:6px;
+  box-shadow:0 12px 40px rgba(0,0,0,0.15);z-index:45;padding:8px 0;
+}
+[data-theme="dark"] .search-results{box-shadow:0 12px 40px rgba(0,0,0,0.4);}
+.search-result-item{
+  padding:14px 20px;cursor:pointer;border-bottom:1px solid var(--rule);transition:background .15s;
+}
+.search-result-item:last-child{border-bottom:none;}
+.search-result-item:hover{background:var(--paper-alt);}
+.search-result-item .sr-title{font-family:'Noto Serif Bengali',serif;font-size:1.05rem;font-weight:600;margin-bottom:4px;}
+.search-result-item .sr-excerpt{font-size:0.85rem;color:var(--ink-soft);max-width:50ch;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.search-result-item .sr-meta{font-size:0.78rem;color:var(--muted);margin-top:4px;}
+.search-empty{padding:30px 20px;text-align:center;color:var(--muted);font-size:0.9rem;}
+
+/* --- রিডিং প্রগ্রেস বার --- */
+.progress-bar{
+  position:fixed;top:0;left:0;height:3px;width:0%;
+  background:var(--accent);z-index:100;transition:width .1s linear;pointer-events:none;
+}
+
+/* --- শেয়ার বাটন --- */
+.share-buttons{display:flex;gap:10px;margin-bottom:28px;flex-wrap:wrap;}
+.share-btn{
+  display:inline-flex;align-items:center;gap:6px;
+  padding:7px 16px;border-radius:20px;font-family:inherit;font-size:0.82rem;
+  border:1px solid var(--rule);color:var(--ink-soft);background:none;cursor:pointer;
+  transition:.2s;text-decoration:none;
+}
+.share-btn:hover{border-color:var(--accent);color:var(--accent);}
+.share-btn svg{width:14px;height:14px;}
+.share-btn.fb:hover{border-color:#1877F2;color:#1877F2;}
+.share-btn.wa:hover{border-color:#25D366;color:#25D366;}
+.share-btn.tg:hover{border-color:#0088CC;color:#0088CC;}
+.share-btn.tw:hover{border-color:#1DA1F2;color:#1DA1F2;}

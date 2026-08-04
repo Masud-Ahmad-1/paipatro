@@ -106,6 +106,28 @@ router.get('/', async (req, res, next) => {
   } catch (e) { next(e); }
 });
 
+// GET /api/posts/search?q=... — সার্চ
+router.get('/search', async (req, res, next) => {
+  try {
+    const q = (req.query.q || '').trim().slice(0, 200);
+    if (!q) return res.json([]);
+    const pattern = '%' + q.replace(/[%_]/g, c => c === '%' ? '\\%' : '\\_') + '%';
+    const today = dayBucket();
+    const month = monthBucket();
+    const result = await db.client.execute({
+      sql: `SELECT p.*,
+              (SELECT COUNT(*) FROM post_views v WHERE v.post_id = p.id) AS total_views,
+              (SELECT COUNT(*) FROM post_views v WHERE v.post_id = p.id AND v.day = ?) AS views_today,
+              (SELECT COUNT(*) FROM post_views v WHERE v.post_id = p.id AND substr(v.day,1,7) = ?) AS views_month
+            FROM posts p
+            WHERE p.title LIKE ? OR p.excerpt LIKE ?
+            ORDER BY p.created_at DESC LIMIT 50`,
+      args: [today, month, pattern, pattern],
+    });
+    res.json(result.rows.map(rowToListItem));
+  } catch (e) { next(e); }
+});
+
 // GET /api/posts/:id — ফ্রি হলে সম্পূর্ণ, পেইড হলে কেনা/সাবস্ক্রিপশন থাকলেই সম্পূর্ণ, নাহলে শুধু প্রিভিউ
 router.get('/:id', async (req, res, next) => {
   try {
