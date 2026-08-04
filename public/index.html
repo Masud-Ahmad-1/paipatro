@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>পাইপত্র — একটি ব্যক্তিগত ব্লগ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Bengali:wght@400;500;600;700&family=Hind+Siliguri:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+
+<header class="site">
+  <button class="logo" id="logo-link">
+    পাইপত্র
+    <svg viewBox="0 0 200 14" preserveAspectRatio="none"><path d="M2,8 C40,2 70,13 100,7 C130,1 160,12 198,6"/></svg>
+  </button>
+  <p class="tagline">ইতিহাস, অর্থনীতি ও শিক্ষা নিয়ে লেখালেখির একটি খাতা</p>
+  <nav class="site" id="category-nav">
+    <!-- ক্যাটাগরি বাটন এখানে app.js দিয়ে বসবে -->
+  </nav>
+</header>
+
+<div class="subcategory-row" id="subcategory-row"></div>
+
+<hr class="top">
+
+<main>
+  <div id="view-list" class="active">
+    <div id="post-list"><div class="loading">লেখাগুলো লোড হচ্ছে…</div></div>
+  </div>
+
+  <div id="view-form">
+    <div class="form-wrap">
+      <h2 class="form-title" id="form-title">নতুন লেখা যোগ করুন</h2>
+      <p class="hint" id="submission-note" style="display:none;">আপনার লেখাটি লেখকের অনুমোদনের পর প্রকাশিত হবে।</p>
+      <div class="form-error" id="form-error" style="display:none;"></div>
+      <div class="field">
+        <label for="f-title">শিরোনাম</label>
+        <input type="text" id="f-title" placeholder="যেমন: শীতের সকাল ও চায়ের কাপ">
+      </div>
+      <div class="field">
+        <label for="f-excerpt">সংক্ষিপ্ত পরিচিতি (তালিকায় দেখাবে)</label>
+        <input type="text" id="f-excerpt" placeholder="এক লাইনে লেখার সারাংশ">
+      </div>
+      <div class="field field-row">
+        <div>
+          <label for="f-category">ক্যাটাগরি</label>
+          <select id="f-category">
+            <option value="">— বাছাই করুন —</option>
+          </select>
+        </div>
+        <div>
+          <label for="f-subcategory">সাব-ক্যাটাগরি</label>
+          <select id="f-subcategory">
+            <option value="">— ঐচ্ছিক —</option>
+          </select>
+        </div>
+      </div>
+      <div class="field" id="f-price-field">
+        <label for="f-price">মূল্য (৳, খালি বা ০ রাখলে ফ্রি)</label>
+        <input type="number" id="f-price" min="0" max="100000" step="1" placeholder="যেমন: ২০">
+        <p class="hint">মূল্য দিলে পাঠককে bKash দিয়ে টাকা দিয়ে তবেই পুরো লেখা পড়তে হবে।</p>
+      </div>
+      <div class="field">
+        <label for="f-body">লেখার মূল অংশ</label>
+        <textarea id="f-body" placeholder="একটি অনুচ্ছেদ শেষ হলে একটি ফাঁকা লাইন দিয়ে পরের অনুচ্ছেদ শুরু করুন।"></textarea>
+        <p class="hint">দুটি অনুচ্ছেদের মাঝে একটি খালি লাইন রাখুন।</p>
+      </div>
+      <div class="form-actions">
+        <button class="btn-primary" id="save-btn">প্রকাশ করুন</button>
+        <button class="btn-ghost" id="cancel-btn">বাতিল</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="view-requests">
+    <div class="requests-wrap">
+      <h2 class="form-title">পেমেন্ট অনুরোধ</h2>
+      <div id="requests-list"><div class="loading">লোড হচ্ছে…</div></div>
+    </div>
+  </div>
+
+  <div id="view-profile">
+    <div class="requests-wrap">
+      <h2 class="form-title">প্রোফাইল</h2>
+      <div id="profile-guard"></div>
+      <div id="profile-content" style="display:none;">
+        <p class="profile-phone" id="profile-phone"></p>
+
+        <h3 class="admin-subheading">সাবস্ক্রিপশন</h3>
+        <div id="subscription-status"></div>
+        <div id="plan-cards"></div>
+        <div id="subscribe-form-wrap" style="display:none;">
+          <form id="subscribe-form" class="paywall-form">
+            <input type="hidden" id="subscribe-plan">
+            <input type="tel" id="subscribe-sender" placeholder="যে bKash নম্বর থেকে পাঠিয়েছেন" required>
+            <input type="text" id="subscribe-trx" placeholder="ট্রানজেকশন আইডি (TrxID)" required>
+            <button type="submit" class="bkash-btn">যাচাইয়ের জন্য জমা দিন</button>
+          </form>
+        </div>
+
+        <h3 class="admin-subheading">আমার কেনা লেখা</h3>
+        <div class="restore-box">
+          <p class="hint">কোনো লেখা এখনও তালিকায় না দেখলে, নিজের bKash নম্বর দিয়ে আবার মিলিয়ে দেখুন।</p>
+          <form id="restore-form" class="paywall-form">
+            <input type="tel" id="restore-phone" placeholder="আপনার bKash নম্বর" required>
+            <button type="submit" class="btn-primary">মিলিয়ে দেখুন</button>
+          </form>
+        </div>
+        <div id="purchases-list"><div class="loading">লোড হচ্ছে…</div></div>
+
+        <button class="btn-ghost" id="profile-logout-btn" style="margin-top:24px;">লগআউট</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="view-admin">
+    <div class="requests-wrap">
+      <div id="login-box">
+        <h2 class="form-title" id="login-title">লগইন</h2>
+        <div class="form-error" id="login-error" style="display:none;"></div>
+        <div class="field">
+          <label for="login-phone">ফোন নম্বর</label>
+          <input type="tel" id="login-phone" autocomplete="tel" placeholder="০১XXXXXXXXX">
+        </div>
+        <div class="field">
+          <label for="login-password">পাসওয়ার্ড</label>
+          <input type="password" id="login-password" autocomplete="current-password">
+        </div>
+        <button class="btn-primary" id="login-btn">লগইন করুন</button>
+        <p class="auth-toggle-note">অ্যাকাউন্ট নেই? <button class="link-btn" id="show-register-btn">নতুন অ্যাকাউন্ট খুলুন</button></p>
+      </div>
+      <div id="register-box" style="display:none;">
+        <h2 class="form-title">নতুন অ্যাকাউন্ট</h2>
+        <div class="form-error" id="register-error" style="display:none;"></div>
+        <div class="field">
+          <label for="register-phone">ফোন নম্বর</label>
+          <input type="tel" id="register-phone" autocomplete="tel" placeholder="০১XXXXXXXXX">
+        </div>
+        <div class="field">
+          <label for="register-password">পাসওয়ার্ড (অন্তত ৮ অক্ষর)</label>
+          <input type="password" id="register-password" autocomplete="new-password">
+        </div>
+        <button class="btn-primary" id="register-btn">অ্যাকাউন্ট খুলুন</button>
+        <p class="auth-toggle-note">আগে থেকেই অ্যাকাউন্ট আছে? <button class="link-btn" id="show-login-btn">লগইন করুন</button></p>
+      </div>
+      <div id="admin-dashboard" style="display:none;">
+        <div class="admin-header">
+          <h2 class="form-title">লেখক ড্যাশবোর্ড</h2>
+          <button class="btn-ghost" id="admin-logout-btn">লগআউট</button>
+        </div>
+        <button class="btn-primary" id="admin-write-btn">+ নতুন লেখা</button>
+        <button class="stats-toggle" id="admin-requests-btn">পেমেন্ট অনুরোধ <span id="requests-badge"></span></button>
+        <button class="stats-toggle" id="admin-submissions-btn">লেখা জমা <span id="submissions-badge"></span></button>
+        <button class="stats-toggle" id="admin-subs-btn">সাবস্ক্রিপশন অনুরোধ <span id="subs-badge"></span></button>
+        <h3 class="admin-subheading">সব লেখা</h3>
+        <div id="admin-post-list"><div class="loading">লোড হচ্ছে…</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="view-submissions">
+    <div class="requests-wrap">
+      <h2 class="form-title">লেখা জমা</h2>
+      <div id="submissions-list"><div class="loading">লোড হচ্ছে…</div></div>
+    </div>
+  </div>
+
+  <div id="view-subs-requests">
+    <div class="requests-wrap">
+      <h2 class="form-title">সাবস্ক্রিপশন অনুরোধ</h2>
+      <div id="subs-requests-list"><div class="loading">লোড হচ্ছে…</div></div>
+    </div>
+  </div>
+
+  <div id="post-detail"></div>
+</main>
+
+<footer>
+  © ২০২৬ পাইপত্র · কিছু কথা লেখা থাকুক, সময়ের জন্য
+</footer>
+
+<script src="/categories.js"></script>
+<script src="/plans.js"></script>
+<script src="/app.js"></script>
+</body>
+</html>

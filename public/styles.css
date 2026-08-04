@@ -1,0 +1,292 @@
+:root{
+  --paper:#F7F4EE;
+  --paper-alt:#F1ECE1;
+  --ink:#1C1B19;
+  --ink-soft:#4A4741;
+  --muted:#8B8578;
+  --accent:#1F4B43;
+  --accent-soft:#D9E4DF;
+  --rule:#E1DACB;
+  --danger:#96422F;
+  --max:680px;
+}
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  margin:0;
+  background:var(--paper);
+  color:var(--ink);
+  font-family:'Hind Siliguri', sans-serif;
+  font-weight:400;
+  line-height:1.85;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:inherit;text-decoration:none;}
+::selection{background:var(--accent-soft);}
+
+header.site{padding:64px 24px 40px;max-width:var(--max);margin:0 auto;text-align:center;}
+.logo{font-family:'Noto Serif Bengali', serif;font-size:clamp(2.2rem, 6vw, 3rem);font-weight:700;letter-spacing:0.01em;color:var(--ink);display:inline-block;position:relative;cursor:pointer;border:none;background:none;}
+.logo svg{display:block;width:100%;height:14px;margin-top:2px;overflow:visible;}
+.logo path{fill:none;stroke:var(--accent);stroke-width:2.5;stroke-linecap:round;stroke-dasharray:400;stroke-dashoffset:400;animation:draw 1.4s ease forwards 0.3s;}
+@keyframes draw{to{stroke-dashoffset:0;}}
+.tagline{margin-top:18px;color:var(--ink-soft);font-size:1.02rem;font-weight:300;letter-spacing:0.01em;}
+nav.site{margin-top:28px;display:flex;gap:24px;justify-content:center;align-items:center;flex-wrap:wrap;font-size:0.92rem;color:var(--muted);}
+nav.site button{background:none;border:none;cursor:pointer;font-family:inherit;font-size:inherit;color:inherit;padding:4px 2px;border-bottom:1px solid transparent;transition:color .2s, border-color .2s;}
+nav.site button:hover, nav.site button.active{color:var(--accent);border-color:var(--accent);}
+.write-btn{background:var(--accent) !important;color:var(--paper) !important;padding:8px 18px !important;border-radius:2px;font-size:0.88rem !important;}
+.write-btn:hover{opacity:0.88;border-color:transparent !important;}
+
+main{max-width:var(--max);margin:0 auto;padding:0 24px 100px;min-height:40vh;}
+hr.top{border:none;border-top:1px solid var(--rule);max-width:var(--max);margin:0 auto;}
+
+.sync-note{text-align:center;font-size:0.78rem;color:var(--muted);padding:10px 24px 0;max-width:var(--max);margin:0 auto;}
+.loading{padding:80px 0;text-align:center;color:var(--muted);font-size:0.95rem;}
+
+.post-item{padding:40px 0;border-bottom:1px solid var(--rule);cursor:pointer;}
+.post-item:last-child{border-bottom:none;}
+.post-meta{font-size:0.85rem;color:var(--muted);display:flex;gap:14px;align-items:center;margin-bottom:10px;flex-wrap:wrap;}
+.post-meta .dot{width:3px;height:3px;border-radius:50%;background:var(--muted);display:inline-block;}
+.post-title{font-family:'Noto Serif Bengali', serif;font-size:1.55rem;font-weight:600;line-height:1.5;margin:0 0 10px;transition:color .2s;}
+.post-item:hover .post-title{color:var(--accent);}
+.post-excerpt{color:var(--ink-soft);font-size:1rem;font-weight:300;margin:0 0 14px;max-width:56ch;}
+.read-more{font-size:0.88rem;color:var(--accent);font-weight:500;display:inline-flex;align-items:center;gap:6px;}
+.read-more svg{width:14px;height:14px;transition:transform .2s;}
+.post-item:hover .read-more svg{transform:translateX(4px);}
+
+.empty-state{padding:70px 0;text-align:center;color:var(--muted);}
+.empty-state p{margin-bottom:20px;}
+
+.about-block{padding:40px 0;}
+.about-block p{color:var(--ink-soft);font-size:1.02rem;}
+
+#view-list, #view-form, #view-requests, #view-profile, #view-admin, #view-submissions, #view-subs-requests{display:none;}
+#view-list.active, #view-form.active, #view-requests.active, #view-profile.active, #view-admin.active, #view-submissions.active, #view-subs-requests.active{display:block;}
+
+.post-full{padding:44px 0 40px;}
+.back-btn{display:inline-flex;align-items:center;gap:8px;color:var(--muted);font-size:0.9rem;cursor:pointer;margin-bottom:36px;background:none;border:none;font-family:inherit;padding:0;}
+.back-btn svg{width:14px;height:14px;transform:rotate(180deg);}
+.back-btn:hover{color:var(--accent);}
+.post-full .post-title{font-size:clamp(1.8rem, 5vw, 2.3rem);margin-bottom:14px;cursor:default;}
+.post-full .post-meta{margin-bottom:20px;}
+.post-actions{display:flex;gap:16px;margin-bottom:34px;}
+.post-actions button{background:none;border:1px solid var(--rule);color:var(--ink-soft);font-family:inherit;font-size:0.82rem;padding:6px 14px;border-radius:2px;cursor:pointer;transition:.2s;}
+.post-actions button:hover{border-color:var(--accent);color:var(--accent);}
+.post-actions button.delete-btn:hover{border-color:var(--danger);color:var(--danger);}
+.post-body p{color:var(--ink);font-size:1.06rem;margin:0 0 24px;}
+.post-body p:first-of-type::first-letter{font-family:'Noto Serif Bengali', serif;font-size:2.6em;float:left;line-height:0.8;padding-right:8px;padding-top:6px;color:var(--accent);font-weight:700;}
+
+.form-wrap{padding:44px 0 40px;}
+.form-title{font-family:'Noto Serif Bengali', serif;font-size:1.7rem;margin-bottom:32px;}
+.field{margin-bottom:24px;}
+.field label{display:block;font-size:0.85rem;color:var(--muted);margin-bottom:8px;}
+.field input, .field textarea{width:100%;background:var(--paper-alt);border:1px solid var(--rule);border-radius:2px;padding:12px 14px;font-family:'Hind Siliguri', sans-serif;font-size:1rem;color:var(--ink);resize:vertical;}
+.field input:focus, .field textarea:focus{outline:2px solid var(--accent);outline-offset:1px;border-color:var(--accent);}
+.field textarea{min-height:220px;line-height:1.8;}
+.field .hint{font-size:0.78rem;color:var(--muted);margin-top:6px;}
+.form-actions{display:flex;gap:14px;align-items:center;margin-top:8px;}
+.btn-primary{background:var(--accent);color:var(--paper);border:none;padding:12px 26px;font-family:inherit;font-size:0.95rem;border-radius:2px;cursor:pointer;transition:opacity .2s;}
+.btn-primary:hover{opacity:0.9;}
+.btn-primary:disabled{opacity:0.5;cursor:not-allowed;}
+.btn-ghost{background:none;border:none;color:var(--muted);font-family:inherit;font-size:0.9rem;cursor:pointer;}
+.btn-ghost:hover{color:var(--ink);}
+.form-error{color:var(--danger);font-size:0.85rem;margin-bottom:16px;}
+
+footer{text-align:center;padding:50px 24px 70px;color:var(--muted);font-size:0.85rem;border-top:1px solid var(--rule);max-width:var(--max);margin:0 auto;}
+
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(28,27,25,0.45);align-items:center;justify-content:center;padding:24px;z-index:50;}
+.modal-overlay.active{display:flex;}
+.modal-box{background:var(--paper);border-radius:3px;padding:32px;max-width:340px;width:100%;box-shadow:0 12px 40px rgba(0,0,0,0.18);}
+.modal-box h3{font-family:'Noto Serif Bengali', serif;margin:0 0 8px;font-size:1.3rem;}
+.modal-hint{color:var(--muted);font-size:0.85rem;margin:0 0 18px;}
+.modal-box input{width:100%;background:var(--paper-alt);border:1px solid var(--rule);border-radius:2px;padding:10px 12px;font-family:inherit;font-size:1rem;color:var(--ink);margin-bottom:12px;}
+.modal-box input:focus{outline:2px solid var(--accent);outline-offset:1px;border-color:var(--accent);}
+.modal-actions{display:flex;gap:14px;align-items:center;margin-top:6px;}
+.author-badge{color:var(--accent);font-weight:500;}
+
+@media (max-width:480px){
+  header.site{padding:48px 20px 32px;}
+  nav.site{gap:16px;}
+}
+@media (prefers-reduced-motion: reduce){
+  .logo path{animation:none;stroke-dashoffset:0;}
+  html{scroll-behavior:auto;}
+}
+
+/* pay-per-post */
+.price-badge{
+  display:inline-flex;align-items:center;gap:4px;
+  font-size:0.78rem;color:var(--accent);border:1px solid var(--accent-soft);
+  background:var(--accent-soft);padding:2px 9px;border-radius:20px;
+}
+.paywall{
+  border:1px solid var(--rule);background:var(--paper-alt);border-radius:4px;
+  padding:32px 28px;text-align:center;margin-top:8px;
+}
+.paywall p{color:var(--ink-soft);margin:0 0 18px;font-size:0.98rem;}
+.paywall .price-line{font-family:'Noto Serif Bengali', serif;font-size:1.4rem;color:var(--ink);margin-bottom:18px;}
+.bkash-btn{
+  background:#E2136E;color:#fff;border:none;padding:13px 30px;
+  font-family:'Hind Siliguri', sans-serif;font-size:1rem;font-weight:500;
+  border-radius:3px;cursor:pointer;transition:opacity .2s;
+}
+.bkash-btn:hover{opacity:0.9;}
+.bkash-btn:disabled{opacity:0.6;cursor:not-allowed;}
+.payment-banner{
+  max-width:var(--max);margin:16px auto 0;padding:12px 20px;border-radius:3px;
+  font-size:0.9rem;text-align:center;
+}
+.payment-banner.success{background:#DCEEE6;color:#1F4B43;}
+.payment-banner.failed{background:#F3DEDA;color:var(--danger);}
+
+/* manual send-money paywall */
+.bkash-number{color:#E2136E;letter-spacing:0.02em;}
+.paywall-form{display:flex;flex-direction:column;gap:12px;margin-top:20px;}
+.paywall-form input{
+  background:var(--paper);border:1px solid var(--rule);border-radius:2px;
+  padding:11px 14px;font-family:'Hind Siliguri', sans-serif;font-size:0.96rem;color:var(--ink);
+}
+.paywall-form input:focus{outline:2px solid var(--accent);outline-offset:1px;border-color:var(--accent);}
+.paywall-note{font-size:0.82rem;color:var(--muted);margin-top:16px;}
+
+/* payment requests admin panel */
+.requests-wrap{padding:44px 0 40px;}
+#requests-badge{color:var(--accent);font-weight:600;}
+.request-card{
+  border:1px solid var(--rule);border-radius:3px;padding:18px 20px;margin-bottom:14px;
+  background:var(--paper-alt);
+}
+.request-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;gap:10px;}
+.request-top strong{font-family:'Noto Serif Bengali', serif;font-size:1.05rem;}
+.request-meta{display:flex;flex-direction:column;gap:4px;font-size:0.88rem;color:var(--ink-soft);margin-bottom:14px;}
+.request-actions{display:flex;gap:12px;}
+.request-actions button{
+  border:none;border-radius:2px;padding:8px 16px;font-family:inherit;font-size:0.85rem;cursor:pointer;
+}
+.approve-btn{background:var(--accent);color:var(--paper);}
+.approve-btn:hover{opacity:0.9;}
+.reject-btn{background:none;border:1px solid var(--danger);color:var(--danger);}
+.reject-btn:hover{background:var(--danger);color:#fff;}
+
+/* my purchases */
+.restore-box{
+  border:1px solid var(--rule);background:var(--paper-alt);border-radius:3px;
+  padding:20px;margin-bottom:28px;
+}
+.restore-box .paywall-form{margin-top:12px;}
+.purchase-card{
+  border-bottom:1px solid var(--rule);padding:18px 0;cursor:pointer;
+}
+.purchase-card:hover .post-title{color:var(--accent);}
+.purchase-card .post-title{font-family:'Noto Serif Bengali', serif;font-size:1.15rem;margin:6px 0;}
+
+/* view stats (author) */
+.view-count-badge{font-size:0.78rem;color:var(--muted);}
+.stats-toggle{
+  background:none;border:1px solid var(--rule);color:var(--ink-soft);font-family:inherit;
+  font-size:0.82rem;padding:6px 14px;border-radius:2px;cursor:pointer;
+}
+.stats-toggle:hover{border-color:var(--accent);color:var(--accent);}
+.stats-panel{
+  border:1px solid var(--rule);background:var(--paper-alt);border-radius:3px;
+  padding:20px;margin:16px 0 30px;font-size:0.9rem;
+}
+.stats-summary{display:flex;gap:24px;margin-bottom:16px;flex-wrap:wrap;}
+.stats-summary div{text-align:center;}
+.stats-summary strong{display:block;font-size:1.3rem;font-family:'Noto Serif Bengali', serif;color:var(--accent);}
+.stats-table{width:100%;border-collapse:collapse;font-size:0.85rem;}
+.stats-table td{padding:5px 8px;border-bottom:1px solid var(--rule);}
+.stats-table td:last-child{text-align:right;font-weight:500;}
+
+/* copy link */
+.copy-link-btn{
+  background:none;border:1px solid var(--rule);color:var(--ink-soft);font-family:inherit;
+  font-size:0.82rem;padding:6px 14px;border-radius:2px;cursor:pointer;
+}
+.copy-link-btn:hover{border-color:var(--accent);color:var(--accent);}
+
+/* category navigation */
+.subcategory-row{
+  max-width:var(--max);margin:0 auto;padding:0 24px;
+  display:none;flex-wrap:wrap;gap:8px;justify-content:center;
+  padding-bottom:20px;
+}
+.subcategory-row.active{display:flex;}
+.sub-tag{
+  background:none;border:1px solid var(--rule);color:var(--ink-soft);
+  font-family:'Hind Siliguri', sans-serif;font-size:0.85rem;padding:6px 14px;
+  border-radius:20px;cursor:pointer;transition:.2s;
+}
+.sub-tag:hover{border-color:var(--accent);color:var(--accent);}
+.sub-tag.active{background:var(--accent);border-color:var(--accent);color:var(--paper);}
+.cat-tag{
+  font-size:0.78rem;color:var(--accent);background:var(--accent-soft);
+  padding:2px 9px;border-radius:20px;
+}
+
+/* footer */
+footer{padding-top:30px;}
+
+/* more-options dropdown (next to category nav) */
+.more-menu-wrap{position:relative;display:inline-block;}
+.more-btn{
+  font-size:1.1rem !important;padding:4px 10px !important;line-height:1;
+}
+.more-menu{
+  display:none;position:absolute;top:calc(100% + 8px);right:0;z-index:40;
+  background:var(--paper);border:1px solid var(--rule);border-radius:3px;
+  box-shadow:0 8px 24px rgba(0,0,0,0.12);min-width:180px;overflow:hidden;
+}
+.more-menu.open{display:block;}
+.more-menu-item{
+  display:block;width:100%;text-align:right;background:none;border:none;
+  color:var(--ink-soft);font-family:'Hind Siliguri', sans-serif;font-size:0.9rem;
+  padding:12px 16px;cursor:pointer;border-bottom:1px solid var(--rule);
+}
+.more-menu-item:last-child{border-bottom:none;opacity:0.7;}
+.more-menu-item:hover{background:var(--paper-alt);color:var(--accent);}
+
+@media (max-width:480px){
+  .more-menu{right:auto;left:50%;transform:translateX(-50%);}
+}
+
+/* admin dashboard */
+.admin-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;}
+.admin-header .form-title{margin-bottom:0;}
+.admin-subheading{font-family:'Noto Serif Bengali', serif;font-size:1.15rem;margin:32px 0 14px;}
+.admin-post-row{
+  display:flex;justify-content:space-between;align-items:center;gap:14px;
+  border-bottom:1px solid var(--rule);padding:14px 0;
+}
+.admin-post-row strong{font-family:'Noto Serif Bengali', serif;font-size:1rem;}
+
+/* form category selects */
+.field-row{display:flex;gap:16px;}
+.field-row > div{flex:1;}
+.field select{
+  width:100%;background:var(--paper-alt);border:1px solid var(--rule);border-radius:2px;
+  padding:11px 14px;font-family:'Hind Siliguri', sans-serif;font-size:1rem;color:var(--ink);
+}
+
+/* login / register */
+#login-box, #register-box, #reader-panel{max-width:340px;margin:0 auto;padding:20px 0;}
+#login-box .form-title, #register-box .form-title, #reader-panel .form-title{text-align:center;}
+.auth-toggle-note{text-align:center;font-size:0.85rem;color:var(--muted);margin-top:16px;}
+.link-btn{background:none;border:none;color:var(--accent);font-family:inherit;font-size:inherit;cursor:pointer;padding:0;text-decoration:underline;}
+#login-btn, #register-btn{width:100%;}
+
+/* profile page */
+.profile-phone{font-size:0.95rem;color:var(--ink-soft);margin-bottom:24px;}
+.subscription-active{color:var(--accent);font-weight:500;}
+.plan-cards, #plan-cards{display:flex;gap:16px;flex-wrap:wrap;margin:16px 0 24px;}
+.plan-card{
+  flex:1;min-width:150px;border:1px solid var(--rule);border-radius:4px;
+  padding:20px;text-align:center;background:var(--paper-alt);
+}
+.plan-name{font-family:'Noto Serif Bengali', serif;font-size:1.05rem;margin-bottom:6px;}
+.plan-price{font-size:1.6rem;color:var(--accent);font-weight:600;}
+.plan-days{font-size:0.82rem;color:var(--muted);margin-bottom:14px;}
+.plan-select-btn{width:100%;}
+#subscribe-form-wrap{margin:20px 0 30px;padding:20px;border:1px solid var(--rule);border-radius:4px;background:var(--paper-alt);}
+
+/* submissions review */
+.submission-excerpt{font-size:0.88rem;color:var(--ink-soft);margin:10px 0 14px;}
