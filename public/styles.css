@@ -317,10 +317,8 @@ footer{padding-top:30px;}
 
 /* --- টুলবার --- */
 .toolbar{
-  position:sticky;top:0;z-index:30;
   background:var(--paper);
-  border-bottom:1px solid var(--rule);
-  padding:10px 24px;
+  padding:12px 24px;
   max-width:var(--max);
   margin:0 auto;
   display:flex;align-items:center;gap:12px;
@@ -347,7 +345,7 @@ footer{padding-top:30px;}
 
 /* --- সার্চ ফলাফল --- */
 .search-results{
-  position:fixed;top:50px;left:50%;transform:translateX(-50%);
+  position:fixed;top:16px;left:50%;transform:translateX(-50%);
   width:min(92vw, 520px);max-height:70vh;overflow-y:auto;
   background:var(--paper);border:1px solid var(--rule);border-radius:6px;
   box-shadow:0 12px 40px rgba(0,0,0,0.15);z-index:45;padding:8px 0;
