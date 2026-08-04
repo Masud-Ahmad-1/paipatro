@@ -315,33 +315,36 @@ footer{padding-top:30px;}
 [data-theme="dark"] .theme-toggle .icon-sun{display:block;}
 [data-theme="dark"] .theme-toggle .icon-moon{display:none;}
 
-/* --- টুলবার --- */
-.toolbar{
-  background:var(--paper);
-  padding:12px 24px;
-  max-width:var(--max);
-  margin:0 auto;
-  display:flex;align-items:center;gap:12px;
+/* --- মেনু সার্চ --- */
+.menu-search-wrap{
+  padding:10px 14px;border-bottom:1px solid var(--rule);
 }
-.search-box{
-  flex:1;display:flex;align-items:center;gap:8px;
-  background:var(--paper-alt);border:1px solid var(--rule);border-radius:20px;padding:7px 14px;transition:border-color .2s;
+.menu-search-box{
+  display:flex;align-items:center;gap:8px;
+  background:var(--paper-alt);border:1px solid var(--rule);border-radius:20px;
+  padding:7px 12px;transition:border-color .2s;
 }
-.search-box:focus-within{border-color:var(--accent);}
-.search-icon{width:16px;height:16px;color:var(--muted);flex-shrink:0;}
-.search-box input{
-  flex:1;border:none;background:none;font-family:inherit;font-size:0.9rem;color:var(--ink);outline:none;min-width:0;
+.menu-search-box:focus-within{border-color:var(--accent);}
+.menu-search-box .search-icon{width:15px;height:15px;color:var(--muted);flex-shrink:0;}
+.menu-search-box input{
+  flex:1;border:none;background:none;font-family:inherit;font-size:0.88rem;
+  color:var(--ink);outline:none;min-width:0;width:140px;
 }
-.search-box input::placeholder{color:var(--muted);}
-.search-close{background:none;border:none;color:var(--muted);font-size:1rem;cursor:pointer;padding:0 2px;font-family:inherit;}
-.search-close:hover{color:var(--danger);}
-.toolbar-actions{display:flex;gap:6px;flex-shrink:0;}
-.tool-btn{
-  background:none;border:1px solid var(--rule);color:var(--ink-soft);
-  font-family:inherit;font-size:0.8rem;padding:5px 10px;border-radius:4px;
-  cursor:pointer;transition:.2s;display:flex;align-items:center;justify-content:center;
+.menu-search-box input::placeholder{color:var(--muted);}
+.menu-search-box .search-close{
+  background:none;border:none;color:var(--muted);font-size:0.95rem;
+  cursor:pointer;padding:0 2px;font-family:inherit;line-height:1;
 }
-.tool-btn:hover{border-color:var(--accent);color:var(--accent);}
+.menu-search-box .search-close:hover{color:var(--danger);}
+
+/* থিম টগল আইকন মেনুতে */
+#menu-theme-toggle{
+  display:flex;align-items:center;gap:10px;
+}
+#menu-theme-toggle .icon-sun,
+#menu-theme-toggle .icon-moon{
+  color:var(--ink-soft);flex-shrink:0;
+}
 
 /* --- সার্চ ফলাফল --- */
 .search-results{

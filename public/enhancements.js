@@ -1,33 +1,39 @@
-/* ==================== উন্নয়ন: সার্চ + ডার্ক মোড + ফন্ট + প্রগ্রেস + শেয়ার + SEO ==================== */
+/* ==================== উন্নয়ন: সার্চ + ডার্ক মোড + প্রগ্রেস + শেয়ার + SEO ==================== */
 (function(){
 'use strict';
 
 // ==================== ডার্ক মোড ====================
 const html = document.documentElement;
-const themeBtn = document.getElementById('theme-toggle');
 const saved = localStorage.getItem('paipatro-theme');
 if(saved) html.setAttribute('data-theme', saved);
 
-themeBtn.classList.add('theme-toggle');
-themeBtn.addEventListener('click', ()=>{
+function syncThemeIcons(btn){
+  if(!btn) return;
+  const isDark = html.getAttribute('data-theme') === 'dark';
+  const sun = btn.querySelector('.icon-sun');
+  const moon = btn.querySelector('.icon-moon');
+  if(sun) sun.style.display = isDark ? 'block' : 'none';
+  if(moon) moon.style.display = isDark ? 'none' : 'block';
+}
+
+// ডেলিগেটেড: থ্রি-ডট মেনুতে থিম বাটন ক্লিক
+function handleThemeToggle(btn){
   const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
   html.setAttribute('data-theme', next);
   localStorage.setItem('paipatro-theme', next);
-});
+  syncThemeIcons(btn);
+}
 
-// ==================== ফন্ট সাইজ কন্ট্রোল ====================
-const FONT_KEY = 'paipatro-font-size';
-const BASE = 16;
-let fontSize = parseInt(localStorage.getItem(FONT_KEY)) || BASE;
-function applyFontSize(){ document.body.style.fontSize = fontSize + 'px'; }
-applyFontSize();
-
-document.getElementById('font-inc').addEventListener('click', ()=>{
-  if(fontSize < 22){ fontSize += 1; localStorage.setItem(FONT_KEY, fontSize); applyFontSize(); }
+// প্রতিবার মেনু রেন্ডার হলে থিম আইকন সিঙ্ক করা (MutationObserver)
+const nav = document.getElementById('category-nav');
+const observer = new MutationObserver(()=>{
+  const btn = document.getElementById('menu-theme-toggle');
+  if(btn){
+    syncThemeIcons(btn);
+    btn.addEventListener('click', ()=> handleThemeToggle(btn));
+  }
 });
-document.getElementById('font-dec').addEventListener('click', ()=>{
-  if(fontSize > 13){ fontSize -= 1; localStorage.setItem(FONT_KEY, fontSize); applyFontSize(); }
-});
+observer.observe(nav, { childList: true, subtree: true });
 
 // ==================== রিডিং প্রগ্রেস বার ====================
 const bar = document.getElementById('progress-bar');
@@ -37,31 +43,52 @@ window.addEventListener('scroll', ()=>{
   bar.style.width = Math.min(pct, 100) + '%';
 }, {passive:true});
 
-// ==================== সার্চ ====================
-const searchInput = document.getElementById('search-input');
-const searchClose = document.getElementById('search-close');
+// ==================== সার্চ (ডেলিগেটেড — মেনু রেন্ডারের পর কাজ করে) ====================
 const searchResults = document.getElementById('search-results');
-const searchForm = document.getElementById('search-form');
 let searchTimer = null;
 
-searchForm.addEventListener('submit', e=> e.preventDefault());
+function getSearchElements(){
+  return {
+    input: document.getElementById('search-input'),
+    close: document.getElementById('search-close'),
+    form: document.getElementById('search-form')
+  };
+}
 
-searchInput.addEventListener('input', ()=>{
-  const q = searchInput.value.trim();
-  searchClose.style.display = q ? 'block' : 'none';
-  clearTimeout(searchTimer);
-  if(!q){ searchResults.style.display = 'none'; return; }
-  searchTimer = setTimeout(()=> doSearch(q), 300);
+function initSearchEvents(){
+  const {input, close, form} = getSearchElements();
+  if(!input || input._enhanced) return;
+  input._enhanced = true;
+
+  form.addEventListener('submit', e=> e.preventDefault());
+
+  input.addEventListener('input', ()=>{
+    const q = input.value.trim();
+    if(close) close.style.display = q ? 'block' : 'none';
+    clearTimeout(searchTimer);
+    if(!q){ searchResults.style.display = 'none'; return; }
+    searchTimer = setTimeout(()=> doSearch(q), 300);
+  });
+
+  if(close){
+    close.addEventListener('click', ()=>{
+      input.value = '';
+      close.style.display = 'none';
+      searchResults.style.display = 'none';
+    });
+  }
+}
+
+// মেনু রেন্ডার হলে সার্চ ইভেন্ট পুনঃবাইন্ড
+const searchObserver = new MutationObserver(()=>{
+  initSearchEvents();
 });
+searchObserver.observe(nav, { childList: true, subtree: true });
 
-searchClose.addEventListener('click', ()=>{
-  searchInput.value = '';
-  searchClose.style.display = 'none';
-  searchResults.style.display = 'none';
-});
-
+// সার্চ রেজাল্ট বাইরে ক্লিক করলে বন্ধ
 document.addEventListener('click', e=>{
-  if(!searchResults.contains(e.target) && !searchForm.contains(e.target)){
+  const {input, form} = getSearchElements();
+  if(!searchResults.contains(e.target) && form && !form.contains(e.target)){
     searchResults.style.display = 'none';
   }
 });
@@ -82,8 +109,9 @@ async function doSearch(q){
       searchResults.querySelectorAll('.search-result-item').forEach(item=>{
         item.addEventListener('click', ()=>{
           searchResults.style.display = 'none';
-          searchInput.value = '';
-          searchClose.style.display = 'none';
+          const {input, close} = getSearchElements();
+          if(input) input.value = '';
+          if(close) close.style.display = 'none';
           openPost(item.dataset.id);
         });
       });
@@ -129,10 +157,7 @@ function addShareButtons(postId, title){
 // openPost কে wrap করা: মূল ফাংশন চালানোর পর SEO ও শেয়ার যোগ করবে
 const _origOpenPost = window.openPost;
 window.openPost = async function(id, push){
-  // মূল ফাংশন কল
   await _origOpenPost(id, push);
-
-  // পোস্ট ডেটা ফেচ করে SEO আপডেট
   try{
     const p = await api('/posts/' + encodeURIComponent(id));
     if(!p) return;
@@ -147,7 +172,6 @@ window.openPost = async function(id, push){
     setMeta('og:type', 'article', 'property');
     setMeta('twitter:title', title, 'name');
     setMeta('twitter:description', desc, 'name');
-    // শেয়ার বাটন যোগ
     setTimeout(()=> addShareButtons(id, title), 100);
   }catch(e){}
 };
@@ -168,11 +192,19 @@ if(logoLink){
 document.addEventListener('keydown', e=>{
   if((e.ctrlKey && e.key === 'k') || (e.key === '/' && !['INPUT','TEXTAREA','SELECT'].includes(document.activeElement.tagName))){
     e.preventDefault();
-    searchInput.focus();
+    // থ্রি-ডট মেনু খুলে সার্চে ফোকাস
+    const moreBtn = document.getElementById('more-btn');
+    const moreMenu = document.getElementById('more-menu');
+    if(moreBtn && moreMenu && !moreMenu.classList.contains('open')){
+      moreMenu.classList.add('open');
+    }
+    const {input} = getSearchElements();
+    if(input) setTimeout(()=> input.focus(), 50);
   }
   if(e.key === 'Escape'){
     searchResults.style.display = 'none';
-    searchInput.blur();
+    const {input} = getSearchElements();
+    if(input) input.blur();
   }
 });
 

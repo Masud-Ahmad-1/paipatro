@@ -64,12 +64,29 @@ function renderCategoryNav(){
        ${isAuthor ? `<button class="more-menu-item" data-view="admin">ড্যাশবোর্ড</button>` : ''}`
     : `<button class="more-menu-item" data-view="admin">লগইন</button>`;
 
+  const searchItem = `
+    <div class="menu-search-wrap">
+      <form class="menu-search-box" id="search-form" autocomplete="off">
+        <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.35-4.35"/></svg>
+        <input type="search" id="search-input" placeholder="সার্চ করুন…" >
+        <button type="button" class="search-close" id="search-close" style="display:none;">✕</button>
+      </form>
+    </div>`;
+
+  const themeItem = `<button class="more-menu-item" id="menu-theme-toggle">
+      <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:15px;height:15px;display:none;"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:15px;height:15px;"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+      ডার্ক মোড
+    </button>`;
+
   nav.innerHTML = Object.keys(CATEGORIES).map(cat => `
     <button class="nav-btn cat-btn ${activeCategory === cat ? 'active' : ''}" data-cat="${escapeHtml(cat)}">${escapeHtml(cat)}</button>
   `).join('') + `
     <div class="more-menu-wrap">
       <button class="nav-btn more-btn" id="more-btn" aria-label="আরও অপশন">⋮</button>
       <div class="more-menu" id="more-menu">
+        ${searchItem}
+        ${themeItem}
         ${menuItems}
       </div>
     </div>
